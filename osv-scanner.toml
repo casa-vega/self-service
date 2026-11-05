@@ -9,14 +9,9 @@ reason = "deepmerge: low severity, no fixed release published (via @primer/react
 [[IgnoredVulns]]
 id = "GHSA-3g3m-2fjr-6pw4"
 ignoreUntil = 2027-02-04
-reason = "glob: dev-only (jest, eslint tooling); fix requires glob 14, a major upgrade inside jest 30"
+reason = "glob: dev-only (jest 30 and coverage tooling use glob 13); fix requires glob 14"
 
 [[IgnoredVulns]]
 id = "GHSA-g3hv-75wg-m249"
 ignoreUntil = 2027-02-04
 reason = "minimatch: dev-only (eslint, jest tooling); fix requires minimatch 11, a major upgrade"
-
-[[IgnoredVulns]]
-id = "GHSA-w5hq-g745-h8pq"
-ignoreUntil = 2027-02-04
-reason = "uuid: dev-only (jest-junit test reporter); fix requires jest-junit 17, a major upgrade"
