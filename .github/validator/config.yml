@@ -1,4 +1,26 @@
 validators:
+  # Every request: the requester must be in the IssueOps requesters team
+  - field: archive_repository_organization
+    script: requester-authorized-true.js
+  - field: change_repository_visibility_organization
+    script: requester-authorized-true.js
+  - field: create_actions_variable_organization
+    script: requester-authorized-true.js
+  - field: create_announcement_organization
+    script: requester-authorized-true.js
+  - field: create_organization_invitation_organization
+    script: requester-authorized-true.js
+  - field: create_project_organization
+    script: requester-authorized-true.js
+  - field: create_repository_transfer_current_organization
+    script: requester-authorized-true.js
+  - field: create_repository_organization
+    script: requester-authorized-true.js
+  - field: rename_repository_organization
+    script: requester-authorized-true.js
+  - field: unarchive_repository_organization
+    script: requester-authorized-true.js
+
   # archive-repository
   - field: archive_repository_name
     script: repository-exists-true.js
