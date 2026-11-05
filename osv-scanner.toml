@@ -1,0 +1,22 @@
+# Known advisories accepted for now (https://google.github.io/osv-scanner/configuration/).
+# Each entry expires; re-check for fixed releases before extending it.
+
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+ignoreUntil = 2027-02-04
+reason = "deepmerge: low severity, no fixed release published (via @primer/react, rollup, jest)"
+
+[[IgnoredVulns]]
+id = "GHSA-3g3m-2fjr-6pw4"
+ignoreUntil = 2027-02-04
+reason = "glob: dev-only (jest, eslint tooling); fix requires glob 14, a major upgrade inside jest 30"
+
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+ignoreUntil = 2027-02-04
+reason = "minimatch: dev-only (eslint, jest tooling); fix requires minimatch 11, a major upgrade"
+
+[[IgnoredVulns]]
+id = "GHSA-w5hq-g745-h8pq"
+ignoreUntil = 2027-02-04
+reason = "uuid: dev-only (jest-junit test reporter); fix requires jest-junit 17, a major upgrade"

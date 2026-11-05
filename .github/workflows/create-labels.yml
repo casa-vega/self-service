@@ -16,13 +16,15 @@ jobs:
       # Checkout the repository to get the data file.
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
 
       # Read the data file to get the list of labels, then create any that are
       # missing from the IssueOps repository.
       - name: Create Missing Labels
         id: read
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             const fs = require('fs');

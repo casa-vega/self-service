@@ -32,13 +32,15 @@ jobs:
       # scripts are included in the workspace.
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
 
       # Since this workflow include custom validation scripts, we need to
       # install Node.js and any dependencies.
       - name: Setup Node.js
         id: setup-node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           cache: npm
           node-version-file: .node-version
@@ -52,7 +54,7 @@ jobs:
       # resources outside the scope of the repository this workflow runs in.
       - name: Get GitHub App Token
         id: token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         env:
           NODE_USE_ENV_PROXY: 1
         with:
@@ -63,7 +65,7 @@ jobs:
       # If the `validated` label is present, remove it.
       - name: Remove Validated Label
         id: remove-label
-        uses: issue-ops/labeler@v4
+        uses: issue-ops/labeler@9210b145e254445abdbfd33099941e7637d56d4e # v4.0.0
         with:
           action: remove
           github_token: ${{ steps.token.outputs.token }}
@@ -78,7 +80,7 @@ jobs:
       # expected labels for each issue form.
       - name: Get Issue Form Template
         id: get-template
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             const fs = require('fs')
@@ -106,7 +108,7 @@ jobs:
       # processed by the rest of the workflow.
       - name: Parse Issue body
         id: parse
-        uses: issue-ops/parser@v5
+        uses: issue-ops/parser@cb7e2e4e5da701aad0e23e718bc4c91d442ca8ba # v5.0.0
         with:
           body: ${{ github.event.issue.body }}
           issue-form-template: ${{ steps.get-template.outputs.template }}
@@ -117,7 +119,7 @@ jobs:
       # are valid.
       - name: Validate Request
         id: validate
-        uses: issue-ops/validator@v4
+        uses: issue-ops/validator@3aec708c72ec4cb8dfca562d4addad3e78e55e26 # v4.0.0
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}
           GH_ENTERPRISE_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
@@ -133,7 +135,7 @@ jobs:
       - if: ${{ steps.validate.outputs.result == 'success' }}
         name: Add Validated Label
         id: add-label
-        uses: issue-ops/labeler@v4
+        uses: issue-ops/labeler@9210b145e254445abdbfd33099941e7637d56d4e # v4.0.0
         with:
           action: add
           github_token: ${{ steps.token.outputs.token }}

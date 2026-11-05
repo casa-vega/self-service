@@ -1,0 +1,9 @@
+# zizmor configuration (https://docs.zizmor.sh/configuration/)
+rules:
+  github-app:
+    # The IssueOps workflows create, rename and archive repositories anywhere in
+    # the organization, so their app token must cover the whole installation.
+    # Keep the GitHub App's own permissions to the minimum the enabled IssueOps need.
+    ignore:
+      - process-issue.yml
+      - process-comment.yml
