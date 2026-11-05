@@ -53,7 +53,7 @@ jobs:
         env:
           NODE_USE_ENV_PROXY: 1
         with:
-          app-id: ${{ vars.ISSUEOPS_APP_ID }}
+          client-id: ${{ vars.ISSUEOPS_APP_CLIENT_ID }}
           private-key: ${{ secrets.ISSUEOPS_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 

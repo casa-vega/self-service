@@ -93,9 +93,9 @@ Make sure to set the following values as **secrets** in your forked repository:
 Make sure to set the following values as **variables** in your forked
 repository:
 
-| Variable Name     | Value                                 |
-| ----------------- | ------------------------------------- |
-| `ISSUEOPS_APP_ID` | The ID of the GitHub App you created. |
+| Variable Name            | Value                                        |
+| ------------------------ | -------------------------------------------- |
+| `ISSUEOPS_APP_CLIENT_ID` | The Client ID of the GitHub App you created. |
 
 ### Create an Enterprise Token
 
