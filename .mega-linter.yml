@@ -26,6 +26,10 @@ DISABLE_LINTERS:
   - REPOSITORY_TRIVY
   - REPOSITORY_TRUFFLEHOG
   - TYPESCRIPT_STANDARD
+  # MegaLinter ships ESLint 10, which no longer reads .eslintrc configs. The
+  # Continuous Integration workflow already lints with the project's own ESLint.
+  - TSX_ESLINT
+  - TYPESCRIPT_ES
 
 # List of enabled but not blocking linters keys
 # https://megalinter.io/latest/config-activation/
@@ -145,3 +149,7 @@ TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.yml
 TYPESCRIPT_PRETTIER_CONFIG_FILE: .prettierrc.yml
 YAML_PRETTIER_CONFIG_FILE: .prettierrc.yml
 YAML_YAMLLINT_CONFIG_FILE: .yaml-lint.yml
+
+# Let zizmor call the GitHub API (it resolves the refs used in `uses:` clauses).
+ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
+  - GITHUB_TOKEN
