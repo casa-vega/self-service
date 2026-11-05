@@ -141,7 +141,7 @@ jobs:
       - if: ${{ steps.validate.outputs.result == 'success' }}
         name: Process Request
         id: process
-        uses: issue-ops/self-service@main
+        uses: ./
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}
           GH_ENTERPRISE_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
