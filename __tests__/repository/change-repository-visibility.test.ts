@@ -46,7 +46,7 @@ describe('changeRepositoryVisibility', () => {
       JSON.stringify({
         change_repository_visibility_organization: 'issue-ops',
         change_repository_visibility_name: 'self-service',
-        change_repository_visibility_visibility: 'private'
+        change_repository_visibility_visibility: ['private']
       })
     )
   })

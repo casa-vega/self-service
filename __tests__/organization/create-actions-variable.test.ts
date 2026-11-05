@@ -53,7 +53,7 @@ describe('createActionsVariable', () => {
         create_actions_variable_organization: 'issue-ops',
         create_actions_variable_name: 'MY_VARIABLE',
         create_actions_variable_value: 'MY_VALUE',
-        create_actions_variable_visibility: 'all',
+        create_actions_variable_visibility: ['all'],
         create_actions_variable_repository_names: ''
       })
     )
@@ -71,7 +71,7 @@ describe('createActionsVariable', () => {
         create_actions_variable_organization: 'issue-ops',
         create_actions_variable_name: 'MY_VARIABLE',
         create_actions_variable_value: 'MY_VALUE',
-        create_actions_variable_visibility: 'all',
+        create_actions_variable_visibility: ['all'],
         create_actions_variable_repository_names: ''
       })
     )
@@ -96,7 +96,7 @@ describe('createActionsVariable', () => {
         create_actions_variable_organization: 'issue-ops',
         create_actions_variable_name: 'MY_VARIABLE',
         create_actions_variable_value: 'MY_VALUE',
-        create_actions_variable_visibility: 'selected',
+        create_actions_variable_visibility: ['selected'],
         create_actions_variable_repository_names: 'repo1, repo2'
       })
     )
@@ -114,7 +114,7 @@ describe('createActionsVariable', () => {
         create_actions_variable_organization: 'issue-ops',
         create_actions_variable_name: 'MY_VARIABLE',
         create_actions_variable_value: 'MY_VALUE',
-        create_actions_variable_visibility: 'selected',
+        create_actions_variable_visibility: ['selected'],
         create_actions_variable_repository_names: 'repo1, repo2'
       })
     )
@@ -140,7 +140,7 @@ describe('createActionsVariable', () => {
         create_actions_variable_organization: 'issue-ops',
         create_actions_variable_name: 'MY_VARIABLE',
         create_actions_variable_value: 'MY_VALUE',
-        create_actions_variable_visibility: 'private',
+        create_actions_variable_visibility: ['private'],
         create_actions_variable_repository_names: ''
       })
     )
@@ -158,7 +158,7 @@ describe('createActionsVariable', () => {
         create_actions_variable_organization: 'issue-ops',
         create_actions_variable_name: 'MY_VARIABLE',
         create_actions_variable_value: 'MY_VALUE',
-        create_actions_variable_visibility: 'private',
+        create_actions_variable_visibility: ['private'],
         create_actions_variable_repository_names: ''
       })
     )

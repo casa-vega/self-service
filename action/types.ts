@@ -52,14 +52,14 @@ export type ArchiveRepositoryBody = {
 export type ChangeRepositoryVisibilityBody = {
   change_repository_visibility_organization: string
   change_repository_visibility_name: string
-  change_repository_visibility_visibility: RepositoryVisibility
+  change_repository_visibility_visibility: RepositoryVisibility[]
 }
 
 export type CreateActionsVariableBody = {
   create_actions_variable_organization: string
   create_actions_variable_name: string
   create_actions_variable_value: string
-  create_actions_variable_visibility: VariableVisibility
+  create_actions_variable_visibility: VariableVisibility[]
   create_actions_variable_repository_names: string
 }
 
@@ -87,7 +87,7 @@ export type CreateRepositoryBody = {
   create_repository_organization: string
   create_repository_name: string
   create_repository_description: string
-  create_repository_visibility: RepositoryVisibility
+  create_repository_visibility: RepositoryVisibility[]
   create_repository_auto_init: Checkboxes
 }
 

@@ -24,12 +24,14 @@ export async function createActionsVariable(
   const repositories = issue.create_actions_variable_repository_names
     .split(/[\s,\n]+/)
     .filter((repository) => repository.trim() !== '')
+  // Dropdown answers are parsed as a list of the selected option(s).
+  const visibility = issue.create_actions_variable_visibility[0]
 
   core.info('Action Inputs')
   core.info(`  Organization: ${issue.create_actions_variable_organization}`)
   core.info(`  Variable Name: ${issue.create_actions_variable_name}`)
   core.info(`  Variable Value: ${issue.create_actions_variable_value}`)
-  core.info(`  Visibility: ${issue.create_actions_variable_visibility}`)
+  core.info(`  Visibility: ${visibility}`)
   core.info(`  Repositories: ${repositories.join(', ')}`)
 
   // If the organization name is not the same as the organization where this
@@ -55,12 +57,12 @@ export async function createActionsVariable(
 
   // Create the variable (when not in demo mode)
   if (!DEMO_MODE())
-    if (issue.create_actions_variable_visibility === 'selected')
+    if (visibility === 'selected')
       await octokit.rest.actions.createOrgVariable({
         org: issue.create_actions_variable_organization,
         name: issue.create_actions_variable_name,
         value: issue.create_actions_variable_value,
-        visibility: issue.create_actions_variable_visibility,
+        visibility,
         selected_repository_ids: repositoryIds
       })
     else
@@ -68,7 +70,7 @@ export async function createActionsVariable(
         org: issue.create_actions_variable_organization,
         name: issue.create_actions_variable_name,
         value: issue.create_actions_variable_value,
-        visibility: issue.create_actions_variable_visibility
+        visibility
       })
 
   // Add a comment to the issue

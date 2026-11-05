@@ -36489,11 +36489,13 @@ async function createActionsVariable(issueOpsInputs) {
     const repositories = issue.create_actions_variable_repository_names
         .split(/[\s,\n]+/)
         .filter((repository) => repository.trim() !== '');
+    // Dropdown answers are parsed as a list of the selected option(s).
+    const visibility = issue.create_actions_variable_visibility[0];
     coreExports.info('Action Inputs');
     coreExports.info(`  Organization: ${issue.create_actions_variable_organization}`);
     coreExports.info(`  Variable Name: ${issue.create_actions_variable_name}`);
     coreExports.info(`  Variable Value: ${issue.create_actions_variable_value}`);
-    coreExports.info(`  Visibility: ${issue.create_actions_variable_visibility}`);
+    coreExports.info(`  Visibility: ${visibility}`);
     coreExports.info(`  Repositories: ${repositories.join(', ')}`);
     // If the organization name is not the same as the organization where this
     // action is running, we need to use the enterprise token.
@@ -36513,12 +36515,12 @@ async function createActionsVariable(issueOpsInputs) {
     }));
     // Create the variable (when not in demo mode)
     if (!DEMO_MODE())
-        if (issue.create_actions_variable_visibility === 'selected')
+        if (visibility === 'selected')
             await octokit.rest.actions.createOrgVariable({
                 org: issue.create_actions_variable_organization,
                 name: issue.create_actions_variable_name,
                 value: issue.create_actions_variable_value,
-                visibility: issue.create_actions_variable_visibility,
+                visibility,
                 selected_repository_ids: repositoryIds
             });
         else
@@ -36526,7 +36528,7 @@ async function createActionsVariable(issueOpsInputs) {
                 org: issue.create_actions_variable_organization,
                 name: issue.create_actions_variable_name,
                 value: issue.create_actions_variable_value,
-                visibility: issue.create_actions_variable_visibility
+                visibility
             });
     // Add a comment to the issue
     await addComment(octokit, issueOpsInputs.organization, issueOpsInputs.repository, issueOpsInputs.issueNumber, `Created organization variable [\`${issue.create_actions_variable_name}\`](https://github.com/organizations/${issue.create_actions_variable_organization}/settings/variables/actions)`);
@@ -36695,11 +36697,13 @@ async function createRepository(issueOpsInputs) {
     const issue = JSON.parse(coreExports.getInput('parsed_issue_body', {
         required: true
     }));
+    // Dropdown answers are parsed as a list of the selected option(s).
+    const visibility = issue.create_repository_visibility[0];
     coreExports.info('Action Inputs');
     coreExports.info(`  Organization: ${issue.create_repository_organization}`);
     coreExports.info(`  Repository Name: ${issue.create_repository_name}`);
     coreExports.info(`  Description: ${issue.create_repository_description}`);
-    coreExports.info(`  Visibility: ${issue.create_repository_visibility}`);
+    coreExports.info(`  Visibility: ${visibility}`);
     coreExports.info(`  Auto-Init: ${issue.create_repository_auto_init}`);
     // If the organization name is not the same as the organization where this
     // action is running, we need to use the enterprise token.
@@ -36717,7 +36721,7 @@ async function createRepository(issueOpsInputs) {
             description: issue.create_repository_description,
             // @ts-expect-error The `internal` visibility option is not included in
             // the TypeScript type definition for the `repos.createInOrg` method.
-            visibility: issue.create_repository_visibility,
+            visibility,
             auto_init: issue.create_repository_auto_init.selected.includes('Enable')
         });
     // Add a comment to the issue
@@ -36780,10 +36784,12 @@ async function changeRepositoryVisibility(issueOpsInputs) {
     const issue = JSON.parse(coreExports.getInput('parsed_issue_body', {
         required: true
     }));
+    // Dropdown answers are parsed as a list of the selected option(s).
+    const visibility = issue.change_repository_visibility_visibility[0].toLowerCase();
     coreExports.info('Action Inputs');
     coreExports.info(`  Organization: ${issue.change_repository_visibility_organization}`);
     coreExports.info(`  Repository: ${issue.change_repository_visibility_name}`);
-    coreExports.info(`  Visibility: ${issue.change_repository_visibility_visibility}`);
+    coreExports.info(`  Visibility: ${visibility}`);
     // If the organization name is not the same as the organization where this
     // action is running, we need to use the enterprise token.
     const octokit = new Octokit({
@@ -36800,21 +36806,18 @@ async function changeRepositoryVisibility(issueOpsInputs) {
     });
     coreExports.info(`Repository Information: ${JSON.stringify(repo)}`);
     // Change the visibility (when not in demo mode)
-    if (!DEMO_MODE() &&
-        repo.visibility !==
-            issue.change_repository_visibility_visibility.toLowerCase())
+    if (!DEMO_MODE() && repo.visibility !== visibility)
         await octokit.rest.repos.update({
             owner: issue.change_repository_visibility_organization,
             repo: issue.change_repository_visibility_name,
             // @ts-expect-error The `internal` visibility option is not included in
             // the TypeScript type definition for the `repos.update` method.
-            visibility: issue.change_repository_visibility_visibility.toLowerCase()
+            visibility: visibility
         });
     // Add a comment to the issue
-    await addComment(octokit, issueOpsInputs.organization, issueOpsInputs.repository, issueOpsInputs.issueNumber, repo.visibility !==
-        issue.change_repository_visibility_visibility.toLowerCase()
-        ? `Set repository \`${issue.change_repository_visibility_organization}/${issue.change_repository_visibility_name}\` to \`${issue.change_repository_visibility_visibility}\` visibility`
-        : `Repository \`${issue.change_repository_visibility_organization}/${issue.change_repository_visibility_name}\` is already \`${issue.change_repository_visibility_visibility}\` visibility`);
+    await addComment(octokit, issueOpsInputs.organization, issueOpsInputs.repository, issueOpsInputs.issueNumber, repo.visibility !== visibility
+        ? `Set repository \`${issue.change_repository_visibility_organization}/${issue.change_repository_visibility_name}\` to \`${visibility}\` visibility`
+        : `Repository \`${issue.change_repository_visibility_organization}/${issue.change_repository_visibility_name}\` is already \`${visibility}\` visibility`);
     // Close the issue
     await closeIssue(octokit, issueOpsInputs.organization, issueOpsInputs.repository, issueOpsInputs.issueNumber);
 }

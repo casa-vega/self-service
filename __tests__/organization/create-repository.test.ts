@@ -41,7 +41,7 @@ describe('createRepository', () => {
         create_repository_organization: 'issue-ops',
         create_repository_name: 'self-service',
         create_repository_description: 'A self-service repository',
-        create_repository_visibility: 'public',
+        create_repository_visibility: ['public'],
         create_repository_auto_init: {
           selected: ['Enable'],
           unselected: []
